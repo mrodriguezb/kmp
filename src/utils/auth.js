@@ -14,6 +14,10 @@ function checkCredentials(user, pass) {
 
 }
 
+function getUserName() {
+    return window.localStorage.getItem('user')
+}
+
 function removeUserCredentials() {
     window.localStorage.removeItem('user');
     window.localStorage.removeItem('pass');
@@ -24,4 +28,4 @@ function storeAuth(user, pass) {
     window.localStorage.setItem('pass', pass);
 }
 
-export default {storeAuth, checkCredentials, checkLocalAuth, removeUserCredentials}
+export default {storeAuth, checkCredentials, checkLocalAuth, removeUserCredentials, getUserName}

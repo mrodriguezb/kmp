@@ -1,5 +1,6 @@
 import React from "react";
 import {createContext} from 'react';
+import auth from './../utils/auth';
 
 
 
@@ -14,25 +15,37 @@ export class ContextProvider extends React.Component {
         userLogged: false,
         name: ""
         };
-        
-        this.login = this.login.bind(this);
+        this.setUserName = this.setUserName.bind(this)
+        this.setUserLogged = this.setUserLogged.bind(this);
         this.processLogout = this.processLogout.bind(this);
     }
 
-    login(username){
-     this.setState({name: username});
-     this.setState({userLogged: true})
+    setUserLogged(status){
+   
+     this.setState({userLogged: status})
     }
     
     processLogout() {
         this.setState({name: ""});
-        this.setState({userLogged: false})
+        this.setState({userLogged: false});
+        auth.removeUserCredentials()
     }
     
+    setUserName(username) {
+        this.setState({name: username});
+    }
+
+    componentDidMount() {
+        auth.checkLocalAuth() && this.setUserValues();
+    }
+
+    setUserValues() {
+        this.setState({userLogged: true, name: auth.getUserName()});
+    }
 
     render() {
         return (
-            <AppContext.Provider value = {{...this.state, login:this.login, processLogout:this.processLogout}}>
+            <AppContext.Provider value = {{...this.state, setUserLogged:this.setUserLogged, setUserName: this.setUserName, processLogout:this.processLogout}}>
                 {this.props.children}
             </AppContext.Provider>
         );

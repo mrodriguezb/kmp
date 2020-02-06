@@ -6,7 +6,7 @@ import auth from './utils/auth';
 import Dashboard from './components/Dashboard.js';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {ContextProvider} from './context/ContextProvider.js';
-
+import Users from './components/Users'
 
 
 class App extends React.Component {
@@ -30,6 +30,7 @@ loginStatusUpdated(loginStatus) {
           <Switch>
             <Route path="/" exact component={Login} />
             <Route path="/dashboard" component={Dashboard} />
+            <Route path="/users" component={Users} />
           </Switch>
         </Router>
       </ContextProvider>

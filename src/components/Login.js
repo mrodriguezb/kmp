@@ -28,12 +28,27 @@ class Login extends React.Component {
             alert("Welcome " + this.state.userName);
             
             //this.setState({show:false});
-            this.context.login(this.state.userName);
-            this.props.history.push("/dashboard");
+            //this.context.login(this.state.userName);
+            this.redirect();
         } else {
             alert("Wrong user");
         }
         
+    }
+
+    componentDidMount() {
+        //llamada cuando se carga por primera vez
+        auth.checkLocalAuth() && this.redirect();
+    }
+
+    componentDidUpdate() {
+        auth.checkLocalAuth() && this.redirect();
+    }
+
+    redirect() {
+            this.context.setUserLogged(true);
+            this.context.setUserName(auth.getUserName());
+            this.props.history.push("/dashboard");
     }
 
     handleUserName(event){
