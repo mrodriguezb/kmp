@@ -1,6 +1,14 @@
 import React from 'react';
 import Navbar from './Navbar';
 import { AppContext } from './../context/ContextProvider.js';
+import CreateUser from './CreateUser';
+
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom"
 
 
  
@@ -32,9 +40,12 @@ class Users extends React.Component {
         
         return this.context.userLogged && (
             <div className="container">
+               
                 <Navbar/>
-        
-        <h1>Users</h1>
+                <div className="navbar-nav">
+                <a className={'nav-item nav-link'}><Link to="/createuser">Create User</Link></a>
+                </div>
+        <h3>Users</h3>
         {
           this.state.users.length == 0
             ? 'Loading users...'
